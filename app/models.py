@@ -22,7 +22,7 @@ class User(UserMixin,db.Model):
 
     blogs = db.relationship('Blog',backref = 'user',lazy = "dynamic")
 
-    # comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
+    comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
 
     @property
     def password(self):
@@ -48,7 +48,7 @@ class Blog(db.Model):
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     
-    # comments = db.relationship('Comment',backref =  'blog_id',lazy = "dynamic")
+    comments = db.relationship('Comment',backref = 'blog_id',lazy = "dynamic")
 
     def save_blog(self):
         db.session.add(self)
@@ -75,3 +75,20 @@ class Blog(db.Model):
             blogs_count += 1
 
         return blogs_count
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key = True)
+    comment = db.Column(db.String(1000))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    blog = db.Column(db.Integer,db.ForeignKey("blogs.id"))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls,blog):
+        comments = Comment.query.filter_by(blog_id=blog).all()
+        return comments
