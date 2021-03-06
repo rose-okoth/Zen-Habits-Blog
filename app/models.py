@@ -91,3 +91,12 @@ class Comment(db.Model):
     def get_comments(cls,blog):
         comments = Comment.query.filter_by(blog_id=blog).all()
         return comments
+
+class Quote:
+    '''
+    Quote class to display the quotes
+    '''
+    def __init__(author,quote):
+
+        self.author=author
+        self.quote=quote
