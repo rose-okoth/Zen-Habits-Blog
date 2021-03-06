@@ -1,0 +1,10 @@
+Hello, {{user.username}}
+
+Welcome to the Zen Blog!
+
+Your account has successfully been created.
+
+You can now share your thoughts and opinions on the platform.
+
+Regards,
+The Zen Blog Team.
