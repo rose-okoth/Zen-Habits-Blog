@@ -26,7 +26,7 @@ def index():
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
-    blogs_count = blog.count_blogs(uname)
+    blogs_count = Blog.count_blogs(uname)
     user_joined = user.date_joined.strftime('%b %d, %Y')
 
     if user is None:
