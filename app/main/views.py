@@ -81,7 +81,7 @@ def new_blog():
         return redirect(url_for('.index'))
 
     title = 'New blog'
-    return render_template('index.html',title = title,blog_form=blog_form )
+    return render_template('create_post.html',title = title,blog_form=blog_form )
 
 @main.route('/blogs/technology_blogs')
 def technology_blogs():
@@ -109,22 +109,6 @@ def entertainment_blogs():
 def blog(id):
     blog = Blog.get_blog(id)
     posted_date = blog.posted.strftime('%b %d, %Y')
-
-    # if request.args.get("like"):
-    #     blog.likes = blog.likes + 1
-
-    #     db.session.add(blog)
-    #     db.session.commit()
-
-    #     return redirect("/blog/{blog_id}".format(blog_id=blog.id))
-
-    # elif request.args.get("dislike"):
-    #     blog.dislikes = blog.dislikes + 1
-
-    #     db.session.add(blog)
-    #     db.session.commit()
-
-    #     return redirect("/blog/{blog_id}".format(blog_id=blog.id))
 
     comment_form = CommentForm()
     if comment_form.validate_on_submit():
