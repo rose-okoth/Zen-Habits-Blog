@@ -20,7 +20,7 @@ class User(UserMixin,db.Model):
     pass_secure = db.Column(db.String(255))
     date_joined = db.Column(db.DateTime,default=datetime.utcnow)
 
-    # blogs = db.relationship('Blog',backref = 'user',lazy = "dynamic")
+    blogs = db.relationship('Blog',backref = 'user',lazy = "dynamic")
 
     # comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
 
@@ -37,3 +37,41 @@ class User(UserMixin,db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
+
+class Blog(db.Model):
+    __tablename__ = 'blogs'
+
+    id = db.Column(db.Integer,primary_key = True)
+    blog_title = db.Column(db.String)
+    blog_content = db.Column(db.String(1000))
+    category = db.Column(db.String)
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    
+    # comments = db.relationship('Comment',backref =  'blog_id',lazy = "dynamic")
+
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_blogs(cls,category):
+        blogs = Blog.query.filter_by(category=category).all()
+        return blogs
+
+    @classmethod
+    def get_blog(cls,id):
+        blog = Blog.query.filter_by(id=id).first()
+
+        return blog
+
+    @classmethod
+    def count_blogs(cls,uname):
+        user = User.query.filter_by(username=uname).first()
+        blogs = Blog.query.filter_by(user_id=user.id).all()
+
+        blogs_count = 0
+        for blog in blogs:
+            blogs_count += 1
+
+        return blogs_count
