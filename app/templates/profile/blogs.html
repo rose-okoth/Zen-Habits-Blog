@@ -2,13 +2,15 @@
 {%import 'macros.html' as macro%}
 
 {% block content %}
-<div class="container">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Kurale&display=swap" rel="stylesheet">
+<div class="container" style="font-family: 'Kurale', serif;">
     <div class="row">
         <!-- displaying  Username-->
         <h3> {{user.username| capitalize}} </h3>
         <hr>
         <!--Display profile photo-->
-        <div class="col-md-3">
+        <div class="col-md-12">
             <div class="thumbnail">
                 {% if user.profile_pic_path %}
                 <img class="" src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
@@ -17,7 +19,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-12">
             <p>Name: {{user.username}} </p>
             <p>No. of blog posts: {{blogs_count}}</p>
             <p>Date joined: {{date}}</p>

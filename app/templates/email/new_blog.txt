@@ -2,8 +2,8 @@ Hello subscriber!
 
 A new blog was just posted.
 
-Title: {{blog.title}}
-Post: {{blog.content|truncate(30)}}
+Title: {{new_blog.title}}
+Post: {{new_blog.content|truncate(30)}}
 
 Regards,
 
