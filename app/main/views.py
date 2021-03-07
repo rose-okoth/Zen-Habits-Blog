@@ -86,7 +86,7 @@ def new_blog():
         for subscriber in subscribers:
             mail_message("New Blog Post","email/new_blog",subscriber.email,new_blog=new_blog)
         return redirect(url_for('.index'))
-        flash('You Posted a new Blog')
+        flash('You Posted a new blog')
 
     title = 'New blog'
     return render_template('create_post.html',title = title,blog_form=blog_form )
@@ -146,7 +146,7 @@ def subscribe():
     new_subscriber = Subscriber(email = email)
     new_subscriber.save_subscriber()
     mail_message("Subscribed to Zen Blog","email/welcome_subscriber",new_subscriber.email,new_subscriber=new_subscriber)
-    flash('Successfuly subscribed')
+    flash('Successfully subscribed')
     return redirect(url_for('main.index'))
 
 @main.route('/blog/<blog_id>/delete', methods = ['POST'])

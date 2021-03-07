@@ -15,16 +15,6 @@
     <p>Share your thoughts on the latest tech, books, movies and tv shows</p>
 </div>
 
-<div class="container text-center" style= "font-family: 'Kurale', serif;">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="well well-lg">
-                <h3>Quote</h3>
-                <p class="card-text">{{quote.quote}}</p>
-                <p>{{quote.author}}</p>
-            </div>
-        </div>
-
 <div class="container-fluid" style= "font-family: 'Kurale', serif;">
     {% for message in get_flashed_messages() %}
     <div class="alert alert-success">
@@ -42,6 +32,16 @@
         </div>
     </form>
 </div>
+
+<div class="container text-center" style= "font-family: 'Kurale', serif;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-lg">
+                <h3>Quote</h3>
+                <p class="card-text">{{quote.quote}}</p>
+                <p>{{quote.author}}</p>
+            </div>
+        </div>
 
 <div class="container text-center" style= "font-family: 'Kurale', serif;">
     <div class="row">
