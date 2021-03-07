@@ -4,9 +4,11 @@ from ..models import User,Blog,Comment
 from .. import db,photos
 from .forms import UpdateProfile,BlogForm,CommentForm
 from flask_login import login_required,current_user
+from ..request import get_quotes
 import datetime
 
 # Views
+
 @main.route('/')
 def index():
 
@@ -20,8 +22,8 @@ def index():
     technology_blogs = Blog.get_blogs('technology')
     books_blogs = Blog.get_blogs('books')
     entertainment_blogs = Blog.get_blogs('entertainment')
-    
-    return render_template('index.html',title = title, technology = technology_blogs, books = books_blogs, entertainment = entertainment_blogs)
+    quotes = get_quotes()
+    return render_template('index.html',title = title, technology = technology_blogs, books = books_blogs, entertainment = entertainment_blogs, quote = quotes)
 
 @main.route('/user/<uname>')
 def profile(uname):

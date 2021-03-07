@@ -15,23 +15,15 @@
     <p>Share your thoughts on the latest tech, books, movies and tv shows</p>
 </div>
 
-
-<!-- <div class="container-fluid">
-    <div class="row row-cols-3 row-cols-md-3 g-4">
-      {% for author, quote, i in content %}
-      <div class="col-3" height="400">
-        <div class="card-group">
-          <div class="card-body">
-              <h4 class="card-title">{{ quote }}</h4>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Written By: {{ author }}</li>
-            </ul>
-          </div>
+<div class="col-md-12">
+    <div class="container">
+        <div class="card cardquote">
+            <div class="card-title">
+                <h4>A quote by: <span style="color: rgb(3, 3, 3)">{{quote.author}}</span> </h4>
+            </div>
+            <p class="card-text">{{quote.quote}}</p>
         </div>
-      </div>
-      {% endfor %}
     </div>
-</div> -->
 
 <div class="container text-center" style= "font-family: 'Kurale', serif;">
     <div class="row">
@@ -59,7 +51,7 @@
     </div>
 
     <div class="container text-center" style="padding-bottom: 20px; font-family: 'Kurale', serif;">
-        <a href="{{url_for('main.new_blog')}}" class="btn btn-primary">Share your thoughts</a>
+        <a href="{{url_for('main.new_blog')}}" class="btn btn-primary">Post a Blog</a>
     </div>
 </div>
 {%endblock%}
