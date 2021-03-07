@@ -6,11 +6,11 @@
     {{ super() }}
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Kurale&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> -->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
 {%endblock%}
 <!-- Content block -->
 {%block content%}
-<div class="jumbotron text-center" style="background-color: rgb(64, 90, 146); color: #fff; padding: 100px 25px; font-family: 'Kurale', serif;">
+<div class="jumbotron text-center" style="background-color: rgba(64, 90, 146); color: #fff; padding: 100px 25px; font-family: 'Kurale', serif;">
     <h1>Zen Blog</h1>
     <p>Share your thoughts on the latest tech, books, movies and tv shows</p>
 </div>
@@ -21,7 +21,7 @@
             <div class="well well-lg">
                 <h3>Quote</h3>
                 <p class="card-text">{{quote.quote}}</p>
-                <p>By: {{quote.author}}</p>
+                <p>{{quote.author}}</p>
             </div>
         </div>
 
