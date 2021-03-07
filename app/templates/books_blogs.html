@@ -2,9 +2,10 @@
 {% import 'macros.html' as macro %}
 
 {%block content%}
+<link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Kurale&display=swap" rel="stylesheet">
-<div class="jumbotron text-center" style="background-color: rgb(64, 90, 146); color: #fff; padding: 100px 25px; font-family: 'Kurale', serif;">
+<div class="jumbotron text-center" style="background-color: rgba(64, 90, 146); color: #fff; padding: 100px 25px; font-family: 'Kurale', serif;">
     <h1>Books</h1>
     <p>Share your thoughts and views on some of your favourite books</p>
 </div>

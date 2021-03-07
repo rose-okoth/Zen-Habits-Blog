@@ -1,11 +1,12 @@
-from flask import render_template,request,redirect,url_for,abort
+from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
-from ..models import User,Blog,Comment
+from ..models import User,Blog,Comment,Subscriber
 from .. import db,photos
 from .forms import UpdateProfile,BlogForm,CommentForm
 from flask_login import login_required,current_user
 from ..request import get_quotes
 import datetime
+from ..email import mail_message
 
 # Views
 
@@ -69,18 +70,23 @@ def update_pic(uname):
 @main.route('/blog/new', methods = ['GET','POST'])
 @login_required
 def new_blog():
+    subscribers = Subscriber.query.all()
     blog_form = BlogForm()
     if blog_form.validate_on_submit():
         title = blog_form.title.data
         blog = blog_form.text.data
         category = blog_form.category.data
+        user_id =  current_user._get_current_object().id
 
         # Updated blog instance
         new_blog = Blog(blog_title=title,blog_content=blog,category=category,user=current_user)
 
         # Save blog method
         new_blog.save_blog()
+        for subscriber in subscribers:
+            mail_message("New Blog Post","email/new_blog",subscriber.email,new_blog=new_blog)
         return redirect(url_for('.index'))
+        flash('You Posted a new Blog')
 
     title = 'New blog'
     return render_template('create_post.html',title = title,blog_form=blog_form )
@@ -133,3 +139,22 @@ def user_blogs(uname):
     user_joined = user.date_joined.strftime('%b %d, %Y')
 
     return render_template("profile/blogs.html", user=user,blogs=blogs,blogs_count=blogs_count,date = user_joined)
+
+@main.route('/subscribe',methods = ['POST','GET'])
+def subscribe():
+    email = request.form.get('subscriber')
+    new_subscriber = Subscriber(email = email)
+    new_subscriber.save_subscriber()
+    mail_message("Subscribed to Zen Blog","email/welcome_subscriber",new_subscriber.email,new_subscriber=new_subscriber)
+    flash('Successfuly subscribed')
+    return redirect(url_for('main.index'))
+
+@main.route('/blog/<blog_id>/delete', methods = ['POST'])
+@login_required
+def delete_post(blog_id):
+    blog = Blog.query.get(blog_id)
+    if blog.user != current_user:
+        abort(403)
+    blog.delete()
+    flash("You have deleted your post successfully!")
+    return redirect(url_for('main.index'))
