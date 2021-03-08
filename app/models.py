@@ -53,6 +53,10 @@ class Blog(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
     @classmethod
     def get_blogs(cls,category):
         blogs = Blog.query.filter_by(category=category).all()
@@ -85,6 +89,10 @@ class Comment(db.Model):
 
     def save_comment(self):
         db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
         db.session.commit()
 
     @classmethod
